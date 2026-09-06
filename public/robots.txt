@@ -1,0 +1,11 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /admin/*
+Disallow: /login
+Disallow: /register
+Disallow: /reset-password
+Disallow: /forgot-password
+
+Allow: /
+
+Sitemap: http://localhost:8080/sitemap.xml

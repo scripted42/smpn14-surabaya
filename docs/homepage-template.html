@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SMP Negeri 14 Surabaya — Beranda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --color-paper: #EDEAD9;
+    --color-paper-alt: #FBFAF5;
+    --color-ink: #1F2A44;
+    --color-red: #9B3226;
+    --color-gold: #C99A3E;
+    --color-line: #A79E8C;
+    --color-green: #2F4A3C;
+
+    --font-display: 'IBM Plex Serif', serif;
+    --font-body: 'IBM Plex Sans', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-body);
+    background: var(--color-paper);
+    color: var(--color-ink);
+    line-height: 1.6;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+  .section { padding: 64px 0; border-bottom: 1px solid var(--color-line); }
+  .section-alt { background: var(--color-paper-alt); }
+  .eyebrow-free-heading {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 34px;
+    line-height: 1.15;
+    max-width: 20ch;
+  }
+  .lead { font-size: 18px; max-width: 62ch; color: #3C4A63; }
+
+  /* ---- HEADER ---- */
+  header {
+    background: var(--color-paper-alt);
+    border-bottom: 1px solid var(--color-line);
+    position: sticky; top: 0; z-index: 50;
+  }
+  .header-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; max-width: 1280px; margin: 0 auto; }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand-mark { width: 40px; height: 40px; background: var(--color-ink); color: var(--color-paper-alt); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-weight: 700; font-size: 18px; }
+  .brand-name { font-family: var(--font-display); font-weight: 700; font-size: 17px; }
+  .brand-sub { font-size: 12px; color: #5A6478; }
+  nav ul { list-style: none; display: flex; gap: 28px; font-size: 15px; font-weight: 500; }
+  nav a:hover { color: var(--color-red); }
+  .btn-ppdb { background: var(--color-red); color: var(--color-paper-alt); padding: 8px 18px; border-radius: 2px; font-weight: 600; font-size: 14px; }
+
+  /* ---- HERO ---- */
+  .hero { position: relative; padding: 72px 0 56px; border-bottom: 1px solid var(--color-line); }
+  .hero::before {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: var(--color-red);
+  }
+  .hero-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 48px; align-items: center; }
+  .hero h1 { font-family: var(--font-display); font-weight: 700; font-size: 48px; line-height: 1.1; margin-bottom: 20px; }
+  .hero p.lead { margin-bottom: 28px; }
+  .hero-cta { display: flex; gap: 16px; }
+  .btn-primary { background: var(--color-ink); color: var(--color-paper-alt); padding: 14px 28px; border-radius: 2px; font-weight: 600; border: 1px solid var(--color-ink); }
+  .btn-primary:hover { background: transparent; color: var(--color-ink); }
+  .btn-outline { border: 1px solid var(--color-ink); padding: 14px 28px; border-radius: 2px; font-weight: 600; }
+  .btn-outline:hover { background: var(--color-ink); color: var(--color-paper-alt); }
+  .hero-photo { border-radius: 4px; overflow: hidden; border: 1px solid var(--color-line); aspect-ratio: 4/3; background: #d8d3bf; display:flex; align-items:center; justify-content:center; color:#8a836f; font-family: var(--font-mono); font-size: 13px; }
+
+  /* ---- STATISTIK (kolom tabel) ---- */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .stat { padding: 0 24px; text-align: left; border-left: 1px solid var(--color-line); }
+  .stat:first-child { border-left: none; padding-left: 0; }
+  .stat .num { font-family: var(--font-display); font-weight: 700; font-size: 40px; color: var(--color-red); }
+  .stat .label { font-size: 14px; color: #5A6478; margin-top: 4px; }
+
+  /* ---- SAMBUTAN ---- */
+  .principal { display: grid; grid-template-columns: 220px 1fr; gap: 40px; align-items: start; }
+  .principal-photo { aspect-ratio: 3/4; background: #d8d3bf; border-radius: 4px; border: 1px solid var(--color-line); }
+  .principal blockquote { font-family: var(--font-display); font-size: 22px; line-height: 1.5; margin-bottom: 16px; }
+  .principal .name { font-weight: 600; }
+  .principal .role { font-size: 14px; color: #5A6478; }
+
+  /* ---- SECTION HEADER ---- */
+  .section-head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 36px; gap: 24px; }
+  .section-head .link-all { font-family: var(--font-mono); font-size: 13px; white-space: nowrap; border-bottom: 1px solid var(--color-ink); padding-bottom: 2px; }
+
+  /* ---- BERITA ---- */
+  .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .news-card { border-bottom: 1px solid var(--color-line); padding-bottom: 20px; }
+  .news-thumb { aspect-ratio: 4/3; background: #d8d3bf; border-radius: 4px; margin-bottom: 16px; }
+  .news-meta { font-family: var(--font-mono); font-size: 12px; color: var(--color-red); margin-bottom: 8px; }
+  .news-card h3 { font-family: var(--font-display); font-size: 19px; font-weight: 600; margin-bottom: 8px; line-height: 1.35; }
+  .news-card p { font-size: 14px; color: #5A6478; }
+
+  /* ---- JADWAL/PROGRAM (motif literal) ---- */
+  .schedule-table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  .schedule-table th, .schedule-table td { border: 1px solid var(--color-line); padding: 14px 16px; text-align: left; }
+  .schedule-table th { font-family: var(--font-mono); font-size: 12px; font-weight: 500; color: #5A6478; background: var(--color-paper-alt); }
+  .schedule-table td.code { font-family: var(--font-mono); font-weight: 500; color: var(--color-red); }
+
+  /* ---- FASILITAS ---- */
+  .facility-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .facility { border: 1px solid var(--color-line); border-radius: 4px; overflow: hidden; background: var(--color-paper-alt); }
+  .facility-photo { aspect-ratio: 1/1; background: #d8d3bf; }
+  .facility-body { padding: 16px; }
+  .facility-body h4 { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+  .facility-body p { font-size: 13px; color: #5A6478; }
+
+  /* ---- PPDB BANNER ---- */
+  .ppdb-banner { background: var(--color-ink); color: var(--color-paper-alt); border-radius: 4px; padding: 48px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center; }
+  .ppdb-banner .badge { display: inline-block; font-family: var(--font-mono); font-size: 12px; background: var(--color-red); padding: 4px 10px; border-radius: 2px; margin-bottom: 16px; }
+  .ppdb-banner h2 { font-family: var(--font-display); font-size: 28px; font-weight: 700; margin-bottom: 12px; }
+  .ppdb-banner p { color: #C9CEDA; max-width: 55ch; }
+  .btn-on-dark { background: var(--color-gold); color: var(--color-ink); padding: 14px 28px; border-radius: 2px; font-weight: 600; white-space: nowrap; }
+
+  /* ---- TIMELINE PPDB (nomor urut valid) ---- */
+  .timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 32px; }
+  .timeline-step { padding: 20px 20px 20px 0; border-left: 1px solid var(--color-line); position: relative; padding-left: 20px; }
+  .timeline-step:first-child { border-left: none; padding-left: 0; }
+  .timeline-step .step-num { font-family: var(--font-mono); color: var(--color-red); font-size: 13px; margin-bottom: 8px; display:block; }
+  .timeline-step h4 { font-weight: 600; margin-bottom: 6px; font-size: 15px; }
+  .timeline-step p { font-size: 13px; color: #5A6478; }
+
+  /* ---- TESTIMONI ---- */
+  .testimonial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .testimonial { border: 1px solid var(--color-line); border-radius: 4px; padding: 28px; background: var(--color-paper-alt); }
+  .testimonial p.quote { font-family: var(--font-display); font-size: 17px; line-height: 1.5; margin-bottom: 20px; }
+  .testimonial .who { display: flex; align-items: center; gap: 12px; }
+  .avatar { width: 36px; height: 36px; border-radius: 4px; background: #d8d3bf; }
+  .who .name { font-weight: 600; font-size: 14px; }
+  .who .role { font-size: 12px; color: #5A6478; }
+
+  /* ---- FOOTER ---- */
+  footer { background: var(--color-green); color: #DDE6DF; padding: 56px 0 24px; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 32px; margin-bottom: 40px; }
+  footer h5 { font-family: var(--font-mono); font-size: 13px; color: #A9C2AE; margin-bottom: 16px; }
+  footer ul { list-style: none; font-size: 14px; }
+  footer li { margin-bottom: 10px; }
+  footer li a:hover { color: #fff; }
+  .footer-bottom { border-top: 1px solid #3E5B4B; padding-top: 20px; font-size: 13px; color: #A9C2AE; display: flex; justify-content: space-between; }
+
+  @media (max-width: 900px) {
+    nav { display: none; }
+    .hero-grid, .principal, .stats, .news-grid, .facility-grid, .testimonial-grid, .footer-grid, .timeline, .ppdb-banner { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 34px; }
+    .stat { border-left: none; border-top: 1px solid var(--color-line); padding: 20px 0 0; }
+    .stat:first-child { border-top: none; }
+    .timeline-step { border-left: none; border-top: 1px solid var(--color-line); padding: 20px 0; }
+    .timeline-step:first-child { border-top: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="/" class="brand">
+      <div class="brand-mark">14</div>
+      <div>
+        <div class="brand-name">SMP Negeri 14 Surabaya</div>
+        <div class="brand-sub">Terakreditasi A</div>
+      </div>
+    </a>
+    <nav>
+      <ul>
+        <li><a href="/profil">Profil</a></li>
+        <li><a href="/akademik">Akademik</a></li>
+        <li><a href="/berita">Berita</a></li>
+        <li><a href="/galeri">Galeri</a></li>
+        <li><a href="/kontak">Kontak</a></li>
+      </ul>
+    </nav>
+    <a href="/ppdb" class="btn-ppdb">SPMB 2026/2027</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <h1>Membentuk siswa Surabaya yang berpikir jernih dan bertindak jujur sejak bangku SMP.</h1>
+      <p class="lead">SMP Negeri 14 Surabaya membuka ruang belajar akademik dan non-akademik yang seimbang bagi siswa kelas VII hingga IX, dengan rekam jejak melanjutkan siswa ke jenjang SMA/SMK terbaik di Surabaya.</p>
+      <div class="hero-cta">
+        <a href="/ppdb" class="btn-primary">Info SPMB</a>
+        <a href="/profil" class="btn-outline">Profil Sekolah</a>
+      </div>
+    </div>
+    <div class="hero-photo">Foto gedung sekolah / kegiatan siswa</div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container stats">
+    <div class="stat"><div class="num">864</div><div class="label">Siswa kelas VII–IX</div></div>
+    <div class="stat"><div class="num">62</div><div class="label">Guru & staff</div></div>
+    <div class="stat"><div class="num">14</div><div class="label">Ekstrakurikuler</div></div>
+    <div class="stat"><div class="num">A</div><div class="label">Akreditasi BAN-S/M</div></div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container principal">
+    <div class="principal-photo"></div>
+    <div>
+      <blockquote>"Sekolah bukan hanya tempat mengejar nilai, tapi tempat siswa belajar bertanggung jawab atas pilihannya sendiri."</blockquote>
+      <div class="name">Dra. Siti Rahmawati, M.Pd.</div>
+      <div class="role">Kepala Sekolah</div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="eyebrow-free-heading">Berita & kegiatan terbaru</h2>
+      <a href="/berita" class="link-all">Lihat semua berita</a>
+    </div>
+    <div class="news-grid">
+      <div class="news-card">
+        <div class="news-thumb"></div>
+        <div class="news-meta">Prestasi · 28 Agustus 2026</div>
+        <h3>Tim OSN Matematika raih juara 2 tingkat provinsi</h3>
+        <p>Tiga siswa kelas XI mewakili sekolah dalam babak final OSN Jawa Timur bulan ini.</p>
+      </div>
+      <div class="news-card">
+        <div class="news-thumb"></div>
+        <div class="news-meta">Kegiatan · 22 Agustus 2026</div>
+        <h3>Pekan olahraga antar kelas resmi dibuka</h3>
+        <p>Kegiatan tahunan ini diikuti oleh seluruh siswa kelas X hingga XII selama dua minggu.</p>
+      </div>
+      <div class="news-card">
+        <div class="news-thumb"></div>
+        <div class="news-meta">Pengumuman · 15 Agustus 2026</div>
+        <h3>Jadwal ujian tengah semester ganjil 2026</h3>
+        <p>Ujian akan dilaksanakan mulai 5 September, siswa dapat mengunduh jadwal lengkap.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="eyebrow-free-heading">Program unggulan sekolah</h2>
+      <a href="/akademik" class="link-all">Detail kurikulum</a>
+    </div>
+    <table class="schedule-table">
+      <thead>
+        <tr><th>Kode</th><th>Program</th><th>Fokus</th><th>Jenjang</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="code">LIT</td><td>Kelas Literasi</td><td>Budaya baca, menulis kreatif, mading digital</td><td>Kelas VII–IX</td></tr>
+        <tr><td class="code">ADW</td><td>Adiwiyata & Lingkungan</td><td>Bank sampah, urban farming sekolah</td><td>Kelas VII–IX</td></tr>
+        <tr><td class="code">TIK</td><td>Literasi Digital</td><td>Coding dasar, desain grafis, robotika</td><td>Kelas VIII–IX</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="eyebrow-free-heading">Fasilitas penunjang belajar</h2>
+    </div>
+    <div class="facility-grid">
+      <div class="facility"><div class="facility-photo"></div><div class="facility-body"><h4>Laboratorium Komputer</h4><p>40 unit, akses internet fiber</p></div></div>
+      <div class="facility"><div class="facility-photo"></div><div class="facility-body"><h4>Perpustakaan</h4><p>+6.000 judul buku fisik & digital</p></div></div>
+      <div class="facility"><div class="facility-photo"></div><div class="facility-body"><h4>Laboratorium IPA</h4><p>Fisika, kimia, biologi terpisah</p></div></div>
+      <div class="facility"><div class="facility-photo"></div><div class="facility-body"><h4>Lapangan Olahraga</h4><p>Basket, futsal, voli</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="ppdb-banner">
+      <div>
+        <span class="badge">SPMB belum dibuka</span>
+        <h2>Sistem Penerimaan Murid Baru (SPMB) tahun ajaran 2026/2027</h2>
+        <p>SMP Negeri 14 Surabaya mengikuti jadwal dan sistem zonasi SPMB Kota Surabaya. Cek jalur zonasi, afirmasi, dan prestasi resmi di portal SPMB Dinas Pendidikan Kota Surabaya.</p>
+      </div>
+      <a href="/ppdb" class="btn-on-dark">Lihat Info Lengkap</a>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-step"><span class="step-num">01</span><h4>Pengumuman Zonasi</h4><p>Diumumkan Dispendik Surabaya</p></div>
+      <div class="timeline-step"><span class="step-num">02</span><h4>Pendaftaran Online</h4><p>Melalui portal SPMB Surabaya</p></div>
+      <div class="timeline-step"><span class="step-num">03</span><h4>Verifikasi & Seleksi</h4><p>Sesuai jadwal resmi Dispendik</p></div>
+      <div class="timeline-step"><span class="step-num">04</span><h4>Daftar Ulang di Sekolah</h4><p>Jadwal menyusul</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="eyebrow-free-heading">Apa kata siswa dan orang tua</h2>
+    </div>
+    <div class="testimonial-grid">
+      <div class="testimonial">
+        <p class="quote">"Guru-gurunya terbuka untuk konsultasi di luar jam pelajaran, anak saya jadi lebih percaya diri bertanya."</p>
+        <div class="who"><div class="avatar"></div><div><div class="name">Bu Endah</div><div class="role">Orang tua siswa kelas VIII</div></div></div>
+      </div>
+      <div class="testimonial">
+        <p class="quote">"Ekskul robotik di sini serius, kami sampai ikut kompetisi tingkat kota tahun lalu."</p>
+        <div class="who"><div class="avatar"></div><div><div class="name">Rafi Ardiansyah</div><div class="role">Siswa kelas IX</div></div></div>
+      </div>
+      <div class="testimonial">
+        <p class="quote">"Fasilitas perpustakaannya lengkap, dulu anak saya jadi rajin baca sejak kelas VII."</p>
+        <div class="who"><div class="avatar"></div><div><div class="name">Pak Yusuf</div><div class="role">Orang tua alumni</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h5>SMP Negeri 14 Surabaya</h5>
+        <p style="font-size:14px; max-width:32ch; color:#C9D6CC;">Jl. Pendidikan No. 14, Surabaya, Jawa Timur 60xxx</p>
+      </div>
+      <div>
+        <h5>Navigasi</h5>
+        <ul>
+          <li><a href="/profil">Profil</a></li>
+          <li><a href="/akademik">Akademik</a></li>
+          <li><a href="/ppdb">PPDB</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Informasi</h5>
+        <ul>
+          <li><a href="/berita">Berita</a></li>
+          <li><a href="/galeri">Galeri</a></li>
+          <li><a href="/kontak">Kontak</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Kontak</h5>
+        <ul>
+          <li>(031) 555-0182</li>
+          <li>info@smpn14-surabaya.sch.id</li>
+          <li>Senin–Jumat, 07.00–15.00</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 SMP Negeri 14 Surabaya</span>
+      <span>Instagram · YouTube · WhatsApp</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
