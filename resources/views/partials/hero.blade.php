@@ -12,9 +12,9 @@
          onerror="this.style.display='none';">
 
     <div class="container hero-grid" style="position: relative; z-index: 1;">
-        <div style="background: rgba(237, 234, 217, 0.88); backdrop-filter: blur(8px); padding: 32px; border-radius: 4px; border: 1px solid var(--color-line); box-shadow: 0 8px 24px rgba(31, 42, 68, 0.10);">
-            <h1 style="margin-top: 0; font-size: 38px; line-height: 1.2;">Membentuk siswa Surabaya yang berpikir jernih dan bertindak jujur sejak bangku SMP.</h1>
-            <p class="lead" style="margin-bottom: 24px; font-size: 17px;">
+        <div style="background: rgba(237, 234, 217, 0.88); backdrop-filter: blur(8px); padding: 28px 30px; border-radius: 4px; border: 1px solid var(--color-line); box-shadow: 0 8px 24px rgba(31, 42, 68, 0.10);">
+            <h1 style="margin-top: 0; font-size: 34px; line-height: 1.22;">Membentuk siswa Surabaya yang berpikir jernih dan bertindak jujur sejak bangku SMP.</h1>
+            <p class="lead" style="margin-bottom: 22px; font-size: 16px; line-height: 1.5;">
                 SMP Negeri 14 Surabaya membuka ruang belajar akademik dan pembentukan karakter Profil Pelajar Pancasila yang seimbang bagi peserta didik kelas VII hingga IX, dengan rekam jejak lulusan melanjutkan ke SMA/SMK negeri unggulan di Surabaya.
             </p>
             <div class="hero-cta" style="margin-bottom: 0;">

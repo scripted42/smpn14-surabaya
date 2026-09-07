@@ -193,8 +193,8 @@ nav.main-nav a.active {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 1.15fr 1fr;
-  gap: 40px;
+  grid-template-columns: 0.92fr 1.25fr;
+  gap: 36px;
   align-items: center;
 }
 
