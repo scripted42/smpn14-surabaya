@@ -3,13 +3,20 @@
 @tailwind utilities;
 
 :root {
-  --color-paper: #EDEAD9;
-  --color-paper-alt: #FBFAF5;
-  --color-ink: #1F2A44;
-  --color-red: #9B3226;
-  --color-gold: #C99A3E;
-  --color-line: #A79E8C;
-  --color-green: #2F4A3C;
+  --color-paper: #F8FAFB;        /* Clean light page background with soft cool tint */
+  --color-paper-alt: #FFFFFF;    /* Crisp pure white for cards, panels, and navbar */
+  --color-ink: #0E1F38;          /* Deep prestigious school Blue Navy */
+  --color-navy: #132B4F;         /* Brand Blue Navy */
+  --color-navy-dark: #0A182E;    /* Dark Midnight Navy for footer and deep headers */
+  --color-teal: #1B7670;         /* Prestigious educational Teal / Sage primary accent */
+  --color-teal-dark: #125752;    /* Darker Teal for button hover and active states */
+  --color-teal-light: #2A918A;   /* Light vibrant Teal */
+  --color-teal-bg: #EBF5F4;      /* Soft Teal/Sage tint for badges, tags, code chips */
+  --color-sage: #50857D;         /* Subtle Sage tone */
+  --color-red: #1B7670;          /* Mapped to Teal for buttons, active links, badges */
+  --color-gold: #D4A03A;         /* Prestigious gold/amber for achievements and awards */
+  --color-line: #E1E8EB;         /* Subtle, modern light slate border */
+  --color-green: #0A182E;        /* Deep Navy for footer background */
 
   --font-display: 'IBM Plex Serif', serif;
   --font-body: 'IBM Plex Sans', sans-serif;

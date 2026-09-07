@@ -12,13 +12,15 @@ export default {
     theme: {
         extend: {
             colors: {
-                paper: '#EDEAD9',
-                'paper-alt': '#FBFAF5',
-                ink: '#1F2A44',
-                schoolRed: '#9B3226',
-                schoolGold: '#C99A3E',
-                schoolLine: '#A79E8C',
-                schoolGreen: '#2F4A3C',
+                paper: '#F8FAFB',
+                'paper-alt': '#FFFFFF',
+                ink: '#0E1F38',
+                schoolRed: '#1B7670',
+                schoolTeal: '#1B7670',
+                schoolNavy: '#0E1F38',
+                schoolGold: '#D4A03A',
+                schoolLine: '#E1E8EB',
+                schoolGreen: '#0A182E',
             },
             fontFamily: {
                 display: ['"IBM Plex Serif"', 'serif'],

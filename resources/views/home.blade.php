@@ -35,7 +35,7 @@
                 @if($principal && $principal->hasMedia('photo'))
                     <img src="{{ $principal->getFirstMediaUrl('photo', 'thumb') }}" alt="{{ $principal->name }}">
                 @else
-                    <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #D8D3BF; color: #5A6478; font-family: var(--font-mono); font-size: 13px; text-align: center; padding: 12px;">
+                    <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #E8EEF1; color: #50667D; font-family: var(--font-mono); font-size: 13px; text-align: center; padding: 12px;">
                         Foto Kepala Sekolah
                     </div>
                 @endif
@@ -152,7 +152,7 @@
                             @if($photoUrl)
                                 <img src="{{ $photoUrl }}" alt="{{ $fac->name }}" loading="lazy">
                             @else
-                                <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #D8D3BF; color: #5A6478; font-family: var(--font-mono); font-size: 12px; text-align: center; padding: 8px;">
+                                <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #E8EEF1; color: #50667D; font-family: var(--font-mono); font-size: 12px; text-align: center; padding: 8px;">
                                     {{ $fac->name }}
                                 </div>
                             @endif
@@ -200,7 +200,7 @@
                                 @if($avatarUrl)
                                     <img src="{{ $avatarUrl }}" alt="{{ $testi->name }}">
                                 @else
-                                    <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #C5BFAC; color: #1F2A44; font-weight: bold; font-size: 13px;">
+                                    <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: var(--color-teal); color: #FFFFFF; font-weight: bold; font-size: 13px;">
                                         {{ substr($testi->name, 0, 1) }}
                                     </div>
                                 @endif

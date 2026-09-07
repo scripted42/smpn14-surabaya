@@ -12,7 +12,7 @@
         @if($coverUrl)
             <img src="{{ $coverUrl }}" alt="{{ $news->title }}" loading="lazy">
         @else
-            <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #D8D3BF; color: #5A6478; font-family: var(--font-mono); font-size: 13px;">
+            <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #E8EEF1; color: #50667D; font-family: var(--font-mono); font-size: 13px;">
                 <span>SMPN 14 Surabaya</span>
             </div>
         @endif

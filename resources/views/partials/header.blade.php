@@ -54,8 +54,8 @@
     </div>
 
     {{-- Teks Berjalan Pengumuman & Berita Penting --}}
-    <div class="announcement-ticker" style="background: #1F2A44; color: #FBFAF5; border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid var(--color-line); font-size: 13px; font-family: var(--font-mono); overflow: hidden; display: flex; align-items: center; height: 34px; position: relative;">
-        <div style="background: var(--color-red); color: #FFF; padding: 0 14px; height: 100%; display: flex; align-items: center; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; font-size: 11px; flex-shrink: 0; z-index: 2; box-shadow: 2px 0 6px rgba(0,0,0,0.25);">
+    <div class="announcement-ticker" style="background: var(--color-navy-dark); color: #FFFFFF; border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid var(--color-line); font-size: 13px; font-family: var(--font-mono); overflow: hidden; display: flex; align-items: center; height: 34px; position: relative;">
+        <div style="background: var(--color-teal); color: #FFF; padding: 0 14px; height: 100%; display: flex; align-items: center; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; font-size: 11px; flex-shrink: 0; z-index: 2; box-shadow: 2px 0 6px rgba(0,0,0,0.25);">
             📢 PENGUMUMAN
         </div>
         <div class="ticker-content-wrap" style="flex: 1; overflow: hidden; white-space: nowrap; position: relative;">
