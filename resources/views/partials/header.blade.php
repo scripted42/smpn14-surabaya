@@ -10,9 +10,9 @@
 <header class="site-header">
     <div class="header-inner">
         <a href="{{ route('home') }}" class="brand">
-            <img src="{{ $schoolLogo }}" alt="Logo SMP Negeri 14 Surabaya" style="width: 44px; height: 44px; object-fit: contain; flex-shrink: 0;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="brand-mark" style="display:none; width:44px; height:44px; background:var(--color-ink); color:#fff; align-items:center; justify-content:center; font-weight:bold; border-radius:2px;">14</div>
-            <div>
+            <img src="{{ $schoolLogo }}" alt="Logo SMP Negeri 14 Surabaya" class="brand-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="brand-mark" style="display:none; width:38px; height:38px; background:var(--color-ink); color:#fff; align-items:center; justify-content:center; font-weight:bold; border-radius:4px;">14</div>
+            <div class="brand-text">
                 <div class="brand-name">SMP Negeri 14 Surabaya</div>
                 <div class="brand-sub">Sekolah Menengah Pertama Negeri · Kota Surabaya</div>
             </div>
@@ -143,55 +143,136 @@
             </ul>
         </nav>
 
-        <div style="display: flex; align-items: center; gap: 12px;">
-            <a href="{{ url('/ppdb') }}" class="btn-ppdb">SPMB 2026/2027</a>
-            <button type="button" class="mobile-menu-btn" onclick="document.getElementById('mobile-nav').classList.toggle('hidden')" style="display:none; background:none; border:none; font-size:24px; cursor:pointer; color:var(--color-ink);" aria-label="Buka Menu">
-                ☰
+        <div class="header-actions">
+            <a href="{{ url('/ppdb') }}" class="btn-ppdb">
+                <span>SPMB</span><span class="btn-ppdb-year"> 2026/2027</span>
+            </a>
+            <button type="button" class="mobile-menu-btn" id="mobile-menu-toggle" onclick="toggleMobileNav()" aria-label="Buka Menu">
+                <svg id="menu-icon-bars" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+                <svg id="menu-icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
             </button>
         </div>
     </div>
 
-    <!-- Mobile Dropdown Navigation -->
-    <div id="mobile-nav" class="hidden" style="background:var(--color-paper-alt); border-top:1px solid var(--color-line); padding:16px 24px;">
-        <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:12px; font-weight:500;">
-            <li><a href="{{ route('home') }}">Beranda</a></li>
-            <li><a href="{{ url('/profil') }}">Profil Sekolah</a></li>
-            <li><a href="{{ url('/guru-staff') }}">Guru & Staf</a></li>
-            <li><a href="{{ url('/akademik') }}">Akademik & Program</a></li>
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-nav" class="hidden mobile-nav-drawer">
+        <ul class="mobile-nav-list">
+            <li><a href="{{ route('home') }}" class="mobile-nav-link {{ request()->routeIs('home') ? 'active' : '' }}">Beranda</a></li>
+            <li><a href="{{ url('/profil') }}" class="mobile-nav-link {{ request()->is('profil*') ? 'active' : '' }}">Profil Sekolah</a></li>
+            <li><a href="{{ url('/guru-staff') }}" class="mobile-nav-link {{ request()->is('guru-staff*') ? 'active' : '' }}">Guru & Staf</a></li>
+            <li><a href="{{ url('/akademik') }}" class="mobile-nav-link {{ request()->is('akademik*') ? 'active' : '' }}">Akademik & Program</a></li>
             
-            <li style="padding: 10px 0; border-top: 1px dashed var(--color-line); border-bottom: 1px dashed var(--color-line);">
-                <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--color-teal); letter-spacing: 0.8px; margin-bottom: 8px;">
-                    Aplikasi Sekolah
-                </div>
-                <div style="display: flex; flex-direction: column; gap: 8px; padding-left: 2px;">
-                    <a href="https://presensia.smpn14-surabaya.sch.id" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: space-between; font-size: 13.5px; color: var(--color-ink); text-decoration: none;">
-                        <span style="font-weight: 600;">1. Presensia</span>
-                        <span style="background: var(--color-teal-bg); color: var(--color-teal); font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; border: 1px solid rgba(27, 118, 112, 0.2);">Online ↗</span>
+            {{-- Aplikasi Sekolah di Mobile --}}
+            <li class="mobile-apps-section">
+                <div class="mobile-apps-heading">Aplikasi & Layanan Digital</div>
+                <div class="mobile-apps-grid">
+                    <a href="https://presensia.smpn14-surabaya.sch.id" target="_blank" rel="noopener noreferrer" class="mobile-app-item active-app">
+                        <div class="app-icon" style="background: var(--color-teal-bg); color: var(--color-teal);">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                                <path d="m9 16 2 2 4-4"></path>
+                            </svg>
+                        </div>
+                        <div class="app-info">
+                            <div class="app-title-row">
+                                <span class="app-name">Presensia</span>
+                                <span class="badge-online">Online ↗</span>
+                            </div>
+                            <div class="app-desc">Presensi digital siswa & guru</div>
+                        </div>
                     </a>
-                    <div style="display: flex; align-items: center; justify-content: space-between; font-size: 13.5px; color: #8C99A8;">
-                        <span>2. Jurnal Mengajar</span>
-                        <span style="background: #F1F5F9; color: #64748B; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 4px;">Coming Soon</span>
+
+                    <div class="mobile-app-item coming-soon">
+                        <div class="app-icon" style="background: #F1F5F9; color: #64748B;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                            </svg>
+                        </div>
+                        <div class="app-info">
+                            <div class="app-title-row">
+                                <span class="app-name">Jurnal Mengajar</span>
+                                <span class="badge-soon">Coming Soon</span>
+                            </div>
+                            <div class="app-desc">Agenda & catatan KBM guru</div>
+                        </div>
                     </div>
-                    <div style="display: flex; align-items: center; justify-content: space-between; font-size: 13.5px; color: #8C99A8;">
-                        <span>3. Perpustakaan</span>
-                        <span style="background: #F1F5F9; color: #64748B; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 4px;">Coming Soon</span>
+
+                    <div class="mobile-app-item coming-soon">
+                        <div class="app-icon" style="background: #F1F5F9; color: #64748B;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m16 6 4 14"></path>
+                                <path d="M12 6v14"></path>
+                                <path d="M8 8v12"></path>
+                                <path d="M4 4v16"></path>
+                            </svg>
+                        </div>
+                        <div class="app-info">
+                            <div class="app-title-row">
+                                <span class="app-name">Perpustakaan</span>
+                                <span class="badge-soon">Coming Soon</span>
+                            </div>
+                            <div class="app-desc">Katalog buku & pustaka digital</div>
+                        </div>
                     </div>
-                    <div style="display: flex; align-items: center; justify-content: space-between; font-size: 13.5px; color: #8C99A8;">
-                        <span>4. E-Rapor</span>
-                        <span style="background: #F1F5F9; color: #64748B; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 4px;">Coming Soon</span>
+
+                    <div class="mobile-app-item coming-soon">
+                        <div class="app-icon" style="background: #F1F5F9; color: #64748B;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                        </div>
+                        <div class="app-info">
+                            <div class="app-title-row">
+                                <span class="app-name">E-Rapor</span>
+                                <span class="badge-soon">Coming Soon</span>
+                            </div>
+                            <div class="app-desc">Penilaian capaian belajar siswa</div>
+                        </div>
                     </div>
-                    <div style="display: flex; align-items: center; justify-content: space-between; font-size: 13.5px; color: #8C99A8;">
-                        <span>5. E-Lapor</span>
-                        <span style="background: #F1F5F9; color: #64748B; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 4px;">Coming Soon</span>
+
+                    <div class="mobile-app-item coming-soon">
+                        <div class="app-icon" style="background: #F1F5F9; color: #64748B;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                <line x1="12" y1="8" x2="12" y2="12"></line>
+                                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                            </svg>
+                        </div>
+                        <div class="app-info">
+                            <div class="app-title-row">
+                                <span class="app-name">E-Lapor</span>
+                                <span class="badge-soon">Coming Soon</span>
+                            </div>
+                            <div class="app-desc">Aspirasi & pengaduan sekolah</div>
+                        </div>
                     </div>
                 </div>
             </li>
 
-            <li><a href="{{ url('/berita') }}">Berita & Artikel</a></li>
-            <li><a href="{{ url('/galeri') }}">Galeri Foto & Video</a></li>
-            <li><a href="{{ url('/prestasi') }}">Prestasi Siswa</a></li>
-            <li><a href="{{ url('/kontak') }}">Hubungi Kami</a></li>
-            <li style="padding-top:8px;"><a href="{{ url('/ppdb') }}" class="btn-ppdb" style="display:block; text-align:center;">Informasi SPMB Surabaya</a></li>
+            <li><a href="{{ url('/berita') }}" class="mobile-nav-link {{ request()->is('berita*') ? 'active' : '' }}">Berita & Artikel</a></li>
+            <li><a href="{{ url('/galeri') }}" class="mobile-nav-link {{ request()->is('galeri*') ? 'active' : '' }}">Galeri Foto & Video</a></li>
+            <li><a href="{{ url('/prestasi') }}" class="mobile-nav-link {{ request()->is('prestasi*') ? 'active' : '' }}">Prestasi Siswa</a></li>
+            <li><a href="{{ url('/kontak') }}" class="mobile-nav-link {{ request()->is('kontak*') ? 'active' : '' }}">Hubungi Kami</a></li>
+            <li style="padding-top:8px;">
+                <a href="{{ url('/ppdb') }}" class="btn-ppdb" style="display:block; text-align:center; padding:12px 18px; font-size:14px; border-radius:6px;">
+                    Informasi SPMB Surabaya
+                </a>
+            </li>
         </ul>
     </div>
 
@@ -207,3 +288,21 @@
         </div>
     </div>
 </header>
+
+<script>
+function toggleMobileNav() {
+    const nav = document.getElementById('mobile-nav');
+    const bars = document.getElementById('menu-icon-bars');
+    const close = document.getElementById('menu-icon-close');
+    const isOpen = !nav.classList.contains('hidden');
+    if (isOpen) {
+        nav.classList.add('hidden');
+        if (bars) bars.style.display = 'block';
+        if (close) close.style.display = 'none';
+    } else {
+        nav.classList.remove('hidden');
+        if (bars) bars.style.display = 'none';
+        if (close) close.style.display = 'block';
+    }
+}
+</script>
