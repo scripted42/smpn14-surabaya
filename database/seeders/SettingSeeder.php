@@ -29,6 +29,16 @@ class SettingSeeder extends Seeder
             ['key' => 'social_facebook', 'value' => 'https://facebook.com/smpn14surabaya', 'type' => 'text'],
             ['key' => 'operational_hours', 'value' => 'Senin - Jumat: 06.30 - 15.30 WIB', 'type' => 'text'],
             ['key' => 'google_maps_embed', 'value' => 'https://maps.google.com/maps?q=SMP+Negeri+14+Surabaya&t=&z=15&ie=UTF8&iwloc=&output=embed', 'type' => 'textarea'],
+            ['key' => 'campaign_popup_active', 'value' => '1', 'type' => 'boolean'],
+            ['key' => 'campaign_popup_badge', 'value' => 'Suara Warga · Layanan Terbuka', 'type' => 'text'],
+            ['key' => 'campaign_popup_title', 'value' => 'Layanan Aduan, Kritik & Saran Sekolah', 'type' => 'text'],
+            ['key' => 'campaign_popup_subtitle', 'value' => 'Kanal Resmi Aspirasi & Pengaduan SMP Negeri 14 Surabaya', 'type' => 'text'],
+            ['key' => 'campaign_popup_description', 'value' => 'SMP Negeri 14 Surabaya membuka ruang keterbukaan untuk menampung aspirasi, kritik, saran, maupun aduan demi peningkatan mutu pendidikan dan fasilitas sekolah.', 'type' => 'textarea'],
+            ['key' => 'campaign_popup_image', 'value' => '', 'type' => 'text'],
+            ['key' => 'campaign_popup_btn_text', 'value' => 'Kirim Aspirasi / Aduan Sekarang', 'type' => 'text'],
+            ['key' => 'campaign_popup_btn_url', 'value' => '/aduan', 'type' => 'text'],
+            ['key' => 'campaign_popup_secondary_text', 'value' => 'Nanti Saja', 'type' => 'text'],
+            ['key' => 'campaign_popup_frequency', 'value' => 'once_per_session', 'type' => 'text'],
         ];
 
         foreach ($settings as $setting) {

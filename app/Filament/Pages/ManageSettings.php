@@ -7,9 +7,11 @@ use Filament\Actions\Action;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
@@ -42,6 +44,10 @@ class ManageSettings extends Page implements HasForms
     public function mount(): void
     {
         $settings = Setting::all()->pluck('value', 'key')->toArray();
+
+        if (isset($settings['campaign_popup_active'])) {
+            $settings['campaign_popup_active'] = (bool) $settings['campaign_popup_active'];
+        }
 
         $this->form->fill($settings);
     }
@@ -167,6 +173,65 @@ class ManageSettings extends Page implements HasForms
                                         ->rows(3),
                                 ]),
                             ]),
+
+                        Tabs\Tab::make('Campaign Pop-up')
+                            ->icon('heroicon-o-megaphone')
+                            ->schema([
+                                Grid::make(1)->schema([
+                                    Toggle::make('campaign_popup_active')
+                                        ->label('Aktifkan Pop-up Campaign')
+                                        ->helperText('Tampilkan jendela popout promosi / pengumuman penting saat pengunjung membuka beranda website.'),
+
+                                    Grid::make(2)->schema([
+                                        TextInput::make('campaign_popup_badge')
+                                            ->label('Label / Badge Kategori')
+                                            ->placeholder('Contoh: Suara Warga · Layanan Terbuka'),
+
+                                        Select::make('campaign_popup_frequency')
+                                            ->label('Frekuensi Tampil ke Pengunjung')
+                                            ->options([
+                                                'once_per_session' => '1 Kali Per Sesi Browser (Disarankan)',
+                                                'always' => 'Selalu Muncul Setiap Buka Beranda',
+                                            ])
+                                            ->default('once_per_session'),
+
+                                        TextInput::make('campaign_popup_title')
+                                            ->label('Judul Utama Campaign')
+                                            ->placeholder('Contoh: Layanan Aduan, Kritik & Saran Sekolah')
+                                            ->required(),
+
+                                        TextInput::make('campaign_popup_subtitle')
+                                            ->label('Sub-judul Campaign')
+                                            ->placeholder('Contoh: Kanal Resmi Aspirasi & Pengaduan SMP Negeri 14 Surabaya'),
+                                    ]),
+
+                                    Textarea::make('campaign_popup_description')
+                                        ->label('Deskripsi / Pesan Campaign')
+                                        ->rows(4)
+                                        ->placeholder('Tuliskan pesan ajakan atau informasi detail campaign...'),
+
+                                    FileUpload::make('campaign_popup_image')
+                                        ->label('Banner / Gambar Campaign (Opsional)')
+                                        ->image()
+                                        ->disk('public')
+                                        ->directory('campaigns')
+                                        ->helperText('Format JPG/PNG/WebP rasio 16:9. Jika tidak diunggah, popout akan tampil elegan dengan teks & warna resmi.'),
+
+                                    Grid::make(3)->schema([
+                                        TextInput::make('campaign_popup_btn_text')
+                                            ->label('Teks Tombol Aksi (CTA)')
+                                            ->placeholder('Contoh: Kirim Aspirasi / Aduan Sekarang'),
+
+                                        TextInput::make('campaign_popup_btn_url')
+                                            ->label('Tautan / URL Tombol Aksi')
+                                            ->placeholder('Contoh: /aduan atau https://...'),
+
+                                        TextInput::make('campaign_popup_secondary_text')
+                                            ->label('Teks Tombol Tutup')
+                                            ->placeholder('Contoh: Nanti Saja'),
+                                    ]),
+                                ]),
+                            ]),
                     ])
                     ->columnSpanFull(),
             ])
@@ -178,6 +243,9 @@ class ManageSettings extends Page implements HasForms
         $state = $this->form->getState();
 
         foreach ($state as $key => $value) {
+            if (is_bool($value)) {
+                $value = $value ? '1' : '0';
+            }
             Setting::updateOrCreate(
                 ['key' => $key],
                 ['value' => $value ?? '', 'type' => 'text']

@@ -27,6 +27,8 @@
         @yield('content')
     </main>
 
+    @include('partials.campaign-popout')
+
     @include('partials.footer')
 
     @stack('scripts')

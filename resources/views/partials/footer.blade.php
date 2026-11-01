@@ -44,6 +44,7 @@
                     <li><a href="{{ url('/berita') }}">Berita & Kegiatan</a></li>
                     <li><a href="{{ url('/prestasi') }}">Prestasi Kejuaraan</a></li>
                     <li><a href="{{ url('/galeri') }}">Dokumentasi Galeri</a></li>
+                    <li><a href="{{ route('complaint.index') }}">Aduan &amp; Aspirasi</a></li>
                     <li><a href="{{ url('/kontak') }}">Layanan Kontak</a></li>
                 </ul>
             </div>

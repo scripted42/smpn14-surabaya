@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AchievementController;
+use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
@@ -28,6 +29,9 @@ Route::get('/galeri/{slug}', [GalleryController::class, 'show'])->name('gallery.
 Route::get('/prestasi', [AchievementController::class, 'index'])->name('achievements.index');
 Route::get('/kontak', [ContactController::class, 'index'])->name('contact.index');
 Route::post('/kontak', [ContactController::class, 'store'])->middleware('throttle:3,1')->name('contact.store');
+Route::get('/aduan', [ComplaintController::class, 'index'])->name('complaint.index');
+Route::post('/aduan', [ComplaintController::class, 'store'])->middleware('throttle:5,1')->name('complaint.store');
+Route::post('/aduan/lacak', [ComplaintController::class, 'track'])->middleware('throttle:10,1')->name('complaint.track');
 Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap');
 
 /*

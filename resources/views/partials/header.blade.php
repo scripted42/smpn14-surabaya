@@ -116,9 +116,9 @@
                             </div>
                         </div>
 
-                        {{-- 5. E-Lapor --}}
-                        <div class="dropdown-item coming-soon" title="Segera Hadir">
-                            <div class="app-icon" style="background: #F1F5F9; color: #64748B;">
+                        {{-- 5. E-Lapor & Aspirasi --}}
+                        <a href="{{ route('complaint.index') }}" class="dropdown-item active-app" title="Buka Layanan Aspirasi & Pengaduan SMPN 14">
+                            <div class="app-icon" style="background: var(--color-teal-bg); color: var(--color-teal);">
                                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                                     <line x1="12" y1="8" x2="12" y2="12"></line>
@@ -127,18 +127,22 @@
                             </div>
                             <div class="app-info">
                                 <div class="app-title-row">
-                                    <span class="app-name">E-Lapor</span>
-                                    <span class="badge-soon">Coming Soon</span>
+                                    <span class="app-name">E-Lapor &amp; Aspirasi</span>
+                                    <span class="badge-online">Aktif</span>
                                 </div>
-                                <div class="app-desc">Aspirasi & pengaduan sekolah</div>
+                                <div class="app-desc">Kanal aduan, kritik &amp; saran</div>
                             </div>
-                        </div>
+                            <svg class="app-ext-icon" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </a>
                     </div>
                 </li>
 
                 <li><a href="{{ url('/berita') }}" class="{{ request()->is('berita*') ? 'active' : '' }}">Berita</a></li>
                 <li><a href="{{ url('/galeri') }}" class="{{ request()->is('galeri*') ? 'active' : '' }}">Galeri</a></li>
                 <li><a href="{{ url('/prestasi') }}" class="{{ request()->is('prestasi*') ? 'active' : '' }}">Prestasi</a></li>
+                <li><a href="{{ route('complaint.index') }}" class="{{ request()->is('aduan*') ? 'active' : '' }}">Aduan &amp; Saran</a></li>
                 <li><a href="{{ url('/kontak') }}" class="{{ request()->is('kontak*') ? 'active' : '' }}">Kontak</a></li>
             </ul>
         </nav>
@@ -245,8 +249,8 @@
                         </div>
                     </div>
 
-                    <div class="mobile-app-item coming-soon">
-                        <div class="app-icon" style="background: #F1F5F9; color: #64748B;">
+                    <a href="{{ route('complaint.index') }}" class="mobile-app-item active-app">
+                        <div class="app-icon" style="background: var(--color-teal-bg); color: var(--color-teal);">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                                 <line x1="12" y1="8" x2="12" y2="12"></line>
@@ -256,17 +260,18 @@
                         <div class="app-info">
                             <div class="app-title-row">
                                 <span class="app-name">E-Lapor</span>
-                                <span class="badge-soon">Coming Soon</span>
+                                <span class="badge-online">Aktif</span>
                             </div>
-                            <div class="app-desc">Aspirasi & pengaduan sekolah</div>
+                            <div class="app-desc">Aspirasi &amp; pengaduan sekolah</div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </li>
 
-            <li><a href="{{ url('/berita') }}" class="mobile-nav-link {{ request()->is('berita*') ? 'active' : '' }}">Berita & Artikel</a></li>
-            <li><a href="{{ url('/galeri') }}" class="mobile-nav-link {{ request()->is('galeri*') ? 'active' : '' }}">Galeri Foto & Video</a></li>
+            <li><a href="{{ url('/berita') }}" class="mobile-nav-link {{ request()->is('berita*') ? 'active' : '' }}">Berita &amp; Artikel</a></li>
+            <li><a href="{{ url('/galeri') }}" class="mobile-nav-link {{ request()->is('galeri*') ? 'active' : '' }}">Galeri Foto &amp; Video</a></li>
             <li><a href="{{ url('/prestasi') }}" class="mobile-nav-link {{ request()->is('prestasi*') ? 'active' : '' }}">Prestasi Siswa</a></li>
+            <li><a href="{{ route('complaint.index') }}" class="mobile-nav-link {{ request()->is('aduan*') ? 'active' : '' }}">Aduan &amp; Kritik Saran</a></li>
             <li><a href="{{ url('/kontak') }}" class="mobile-nav-link {{ request()->is('kontak*') ? 'active' : '' }}">Hubungi Kami</a></li>
             <li style="padding-top:8px;">
                 <a href="{{ url('/ppdb') }}" class="btn-ppdb" style="display:block; text-align:center; padding:12px 18px; font-size:14px; border-radius:6px;">
