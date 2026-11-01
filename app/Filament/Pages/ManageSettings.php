@@ -49,6 +49,16 @@ class ManageSettings extends Page implements HasForms
             $settings['campaign_popup_active'] = (bool) $settings['campaign_popup_active'];
         }
 
+        if (!empty($settings['hero_images'])) {
+            $decoded = json_decode($settings['hero_images'], true);
+            $settings['hero_images'] = is_array($decoded) ? $decoded : [$settings['hero_images']];
+        } elseif (!empty($settings['hero_image'])) {
+            $decoded = json_decode($settings['hero_image'], true);
+            $settings['hero_images'] = is_array($decoded) ? $decoded : [$settings['hero_image']];
+        } else {
+            $settings['hero_images'] = [];
+        }
+
         $this->form->fill($settings);
     }
 
@@ -107,12 +117,15 @@ class ManageSettings extends Page implements HasForms
                                         ->placeholder('Senin - Jumat: 06.30 - 15.30 WIB')
                                         ->columnSpanFull(),
 
-                                    FileUpload::make('hero_image')
-                                        ->label('Foto Banner Hero Beranda')
+                                    FileUpload::make('hero_images')
+                                        ->label('Foto Banner Hero Beranda (Bisa Multiple / Autoslide)')
                                         ->image()
+                                        ->multiple()
+                                        ->reorderable()
+                                        ->appendFiles()
                                         ->disk('public')
                                         ->directory('settings')
-                                        ->helperText('Format JPG/PNG/WebP rasio 4:3. Foto ini akan tampil sebagai banner visual utama di halaman depan beranda sekolah.')
+                                        ->helperText('Unggah satu atau beberapa foto banner utama (format JPG/PNG/WebP). Jika mengunggah lebih dari 1 foto, banner di beranda akan otomatis bergeser (autoslide) dengan tombol indikator titik "..." navigasi.')
                                         ->columnSpanFull(),
                                 ]),
                             ]),
@@ -245,10 +258,21 @@ class ManageSettings extends Page implements HasForms
         foreach ($state as $key => $value) {
             if (is_bool($value)) {
                 $value = $value ? '1' : '0';
+            } elseif (is_array($value)) {
+                $value = json_encode(array_values(array_filter($value)));
             }
             Setting::updateOrCreate(
                 ['key' => $key],
                 ['value' => $value ?? '', 'type' => 'text']
+            );
+        }
+
+        if (isset($state['hero_images']) && is_array($state['hero_images'])) {
+            $filtered = array_values(array_filter($state['hero_images']));
+            $firstImage = !empty($filtered) ? $filtered[0] : '';
+            Setting::updateOrCreate(
+                ['key' => 'hero_image'],
+                ['value' => $firstImage, 'type' => 'text']
             );
         }
 
