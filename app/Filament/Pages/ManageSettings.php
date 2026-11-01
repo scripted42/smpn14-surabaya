@@ -341,7 +341,7 @@ class ManageSettings extends Page implements HasForms
         $fonnte = app(\App\Services\FonnteService::class);
         $res = $fonnte->sendMessage(
             $targets,
-            "✅ *TES KONEKSI WHATSAPP BERHASIL*\n\nWebsite SMP Negeri 14 Surabaya telah terhubung dengan layanan WhatsApp Gateway Fonnte.\n\nNotifikasi pengaduan / aspirasi siswa & wali murid akan otomatis diteruskan ke nomor ini.\n\n📅 Waktu: " . now()->locale('id')->isoFormat('dddd, D MMMM Y HH:mm') . " WIB"
+            "✅ *TES KONEKSI WHATSAPP BERHASIL*\n\nWebsite SMP Negeri 14 Surabaya telah terhubung dengan layanan WhatsApp Gateway Fonnte.\n\nNotifikasi pengaduan / aspirasi siswa & wali murid akan otomatis diteruskan ke nomor ini.\n\n📅 Waktu: " . now()->locale('id')->isoFormat('dddd, D MMMM Y HH:mm') . " WIB\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n🏛️ *LAYANAN PENGADUAN & ASPIRASI*\n*SMP NEGERI 14 SURABAYA*\n🔒 _Pesan notifikasi otomatis server website resmi_\n━━━━━━━━━━━━━━━━━━━━━━━━━━"
         );
 
         if ($res['status']) {

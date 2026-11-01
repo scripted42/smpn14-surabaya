@@ -115,7 +115,12 @@ class FonnteService
             . "\"{$snippetContent}\"\n\n"
             . "Silakan login ke panel admin untuk membaca detail & menindaklanjuti:\n"
             . "🔗 {$adminUrl}\n\n"
-            . "📅 Waktu: " . now()->locale('id')->isoFormat('dddd, D MMMM Y HH:mm') . " WIB";
+            . "📅 Waktu: " . now()->locale('id')->isoFormat('dddd, D MMMM Y HH:mm') . " WIB\n\n"
+            . "━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+            . "🏛️ *LAYANAN PENGADUAN & ASPIRASI*\n"
+            . "*SMP NEGERI 14 SURABAYA*\n"
+            . "🔒 _Pesan notifikasi otomatis server website resmi_\n"
+            . "━━━━━━━━━━━━━━━━━━━━━━━━━━";
 
         return $this->sendMessage($targets, $message);
     }
