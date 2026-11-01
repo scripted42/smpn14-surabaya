@@ -44,8 +44,12 @@ class ComplaintResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
-        $count = Complaint::where('status', 'pending')->count();
-        return $count > 0 ? (string) $count : null;
+        try {
+            $count = Complaint::where('status', 'pending')->count();
+            return $count > 0 ? (string) $count : null;
+        } catch (\Throwable $e) {
+            return null;
+        }
     }
 
     public static function getNavigationBadgeColor(): ?string
