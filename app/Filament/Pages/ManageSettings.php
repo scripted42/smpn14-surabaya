@@ -4,6 +4,8 @@ namespace App\Filament\Pages;
 
 use App\Models\Setting;
 use Filament\Actions\Action;
+use Filament\Forms\Components\Actions;
+use Filament\Forms\Components\Actions\Action as FormAction;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Section;
@@ -271,6 +273,14 @@ class ManageSettings extends Page implements HasForms
                                             ->placeholder('Contoh: 08123456789 atau 08123456789,08987654321')
                                             ->helperText('Nomor yang akan menerima notifikasi setiap ada aduan masuk. Bisa lebih dari 1 nomor dengan pemisah koma (,).'),
                                     ]),
+
+                                    Actions::make([
+                                        FormAction::make('test_wa_in_tab')
+                                            ->label('Tes Kirim Notifikasi WhatsApp Sekarang')
+                                            ->icon('heroicon-o-paper-airplane')
+                                            ->color('success')
+                                            ->action(fn () => $this->runTestWa()),
+                                    ]),
                                 ]),
                             ]),
                     ])
@@ -310,6 +320,66 @@ class ManageSettings extends Page implements HasForms
             ->send();
     }
 
+    public function runTestWa(): void
+    {
+        $state = $this->form->getState();
+        $targets = !empty($state['fonnte_target_phones']) ? $state['fonnte_target_phones'] : Setting::get('fonnte_target_phones');
+        $token = !empty($state['fonnte_token']) ? $state['fonnte_token'] : Setting::get('fonnte_token');
+
+        if (empty($targets)) {
+            Notification::make()
+                ->title('Nomor WhatsApp Penerima Belum Diisi')
+                ->body('Silakan isi kolom "Nomor WhatsApp Penerima (Kesiswaan)" terlebih dahulu.')
+                ->danger()
+                ->send();
+            return;
+        }
+
+        if (empty($token)) {
+            Notification::make()
+                ->title('Token Fonnte Belum Diisi')
+                ->body('Silakan isi Token API Fonnte dari dashboard Fonnte terlebih dahulu.')
+                ->danger()
+                ->send();
+            return;
+        }
+
+        // Simpan ke database jika belum tersimpan
+        Setting::set('fonnte_token', $token);
+        Setting::set('fonnte_target_phones', $targets);
+
+        $fonnte = app(\App\Services\FonnteService::class);
+        $res = $fonnte->sendMessage(
+            $targets,
+            "✅ *TES KONEKSI WHATSAPP BERHASIL*\n\nWebsite SMP Negeri 14 Surabaya telah terhubung dengan layanan WhatsApp Gateway Fonnte.\n\nNotifikasi pengaduan / aspirasi siswa & wali murid akan otomatis diteruskan ke nomor ini.\n\n📅 Waktu: " . now()->locale('id')->isoFormat('dddd, D MMMM Y HH:mm') . " WIB"
+        );
+
+        if ($res['status']) {
+            Notification::make()
+                ->title('Pesan Uji Coba Berhasil Terkirim!')
+                ->body('Silakan periksa pesan masuk di WhatsApp nomor penerima: ' . $targets)
+                ->success()
+                ->send();
+        } else {
+            Notification::make()
+                ->title('Gagal Mengirim Pesan WhatsApp')
+                ->body($res['message'])
+                ->danger()
+                ->send();
+        }
+    }
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            Action::make('test_wa_header')
+                ->label('Tes Kirim WhatsApp')
+                ->icon('heroicon-o-paper-airplane')
+                ->color('success')
+                ->action(fn () => $this->runTestWa()),
+        ];
+    }
+
     protected function getFormActions(): array
     {
         return [
@@ -321,41 +391,8 @@ class ManageSettings extends Page implements HasForms
             Action::make('test_wa')
                 ->label('Tes Kirim Notifikasi WhatsApp')
                 ->icon('heroicon-o-paper-airplane')
-                ->color('gray')
-                ->requiresConfirmation()
-                ->modalHeading('Kirim Pesan WhatsApp Uji Coba')
-                ->modalDescription('Pastikan Anda sudah menyimpan Token Fonnte dan Nomor WhatsApp Penerima sebelum menjalankan uji coba ini.')
-                ->action(function () {
-                    $targets = Setting::get('fonnte_target_phones');
-                    if (empty($targets)) {
-                        Notification::make()
-                            ->title('Nomor WhatsApp Penerima Belum Diisi')
-                            ->body('Silakan isi nomor WhatsApp penerima di tab "Notifikasi WhatsApp" lalu klik Simpan terlebih dahulu.')
-                            ->danger()
-                            ->send();
-                        return;
-                    }
-
-                    $fonnte = app(\App\Services\FonnteService::class);
-                    $res = $fonnte->sendMessage(
-                        $targets,
-                        "✅ *TES KONEKSI WHATSAPP BERHASIL*\n\nWebsite SMP Negeri 14 Surabaya telah terhubung dengan layanan WhatsApp Gateway Fonnte.\n\nNotifikasi pengaduan / aspirasi siswa & wali murid akan otomatis diteruskan ke nomor ini.\n\n📅 Waktu: " . now()->format('d/m/Y H:i') . " WIB"
-                    );
-
-                    if ($res['status']) {
-                        Notification::make()
-                            ->title('Pesan Uji Coba Berhasil Terkirim!')
-                            ->body('Silakan periksa pesan masuk di WhatsApp nomor penerima.')
-                            ->success()
-                            ->send();
-                    } else {
-                        Notification::make()
-                            ->title('Gagal Mengirim Pesan WhatsApp')
-                            ->body($res['message'])
-                            ->danger()
-                            ->send();
-                    }
-                }),
+                ->color('success')
+                ->action(fn () => $this->runTestWa()),
         ];
     }
 }
