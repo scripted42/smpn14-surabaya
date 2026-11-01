@@ -120,3 +120,4 @@ class FonnteService
         return $this->sendMessage($targets, $message);
     }
 }
+

@@ -4,8 +4,6 @@ namespace App\Filament\Pages;
 
 use App\Models\Setting;
 use Filament\Actions\Action;
-use Filament\Forms\Components\Actions;
-use Filament\Forms\Components\Actions\Action as FormAction;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Section;
@@ -273,14 +271,6 @@ class ManageSettings extends Page implements HasForms
                                             ->placeholder('Contoh: 08123456789 atau 08123456789,08987654321')
                                             ->helperText('Nomor yang akan menerima notifikasi setiap ada aduan masuk. Bisa lebih dari 1 nomor dengan pemisah koma (,).'),
                                     ]),
-
-                                    Actions::make([
-                                        FormAction::make('test_wa_in_tab')
-                                            ->label('Tes Kirim Notifikasi WhatsApp Sekarang')
-                                            ->icon('heroicon-o-paper-airplane')
-                                            ->color('success')
-                                            ->action(fn () => $this->runTestWa()),
-                                    ]),
                                 ]),
                             ]),
                     ])
@@ -369,17 +359,6 @@ class ManageSettings extends Page implements HasForms
         }
     }
 
-    protected function getHeaderActions(): array
-    {
-        return [
-            Action::make('test_wa_header')
-                ->label('Tes Kirim WhatsApp')
-                ->icon('heroicon-o-paper-airplane')
-                ->color('success')
-                ->action(fn () => $this->runTestWa()),
-        ];
-    }
-
     protected function getFormActions(): array
     {
         return [
@@ -387,12 +366,6 @@ class ManageSettings extends Page implements HasForms
                 ->label('Simpan Pengaturan')
                 ->submit('save')
                 ->color('primary'),
-
-            Action::make('test_wa')
-                ->label('Tes Kirim Notifikasi WhatsApp')
-                ->icon('heroicon-o-paper-airplane')
-                ->color('success')
-                ->action(fn () => $this->runTestWa()),
         ];
     }
 }
