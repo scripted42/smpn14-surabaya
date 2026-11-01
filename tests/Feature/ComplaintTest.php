@@ -8,6 +8,8 @@ use Tests\TestCase;
 
 class ComplaintTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function test_complaint_page_can_be_rendered(): void
     {
         $response = $this->get('/aduan');

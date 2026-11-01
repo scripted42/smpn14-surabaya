@@ -49,6 +49,10 @@ class ManageSettings extends Page implements HasForms
             $settings['campaign_popup_active'] = (bool) $settings['campaign_popup_active'];
         }
 
+        if (isset($settings['fonnte_notification_active'])) {
+            $settings['fonnte_notification_active'] = (bool) $settings['fonnte_notification_active'];
+        }
+
         if (!empty($settings['hero_images'])) {
             $decoded = json_decode($settings['hero_images'], true);
             $settings['hero_images'] = is_array($decoded) ? $decoded : [$settings['hero_images']];
@@ -245,6 +249,30 @@ class ManageSettings extends Page implements HasForms
                                     ]),
                                 ]),
                             ]),
+
+                        Tabs\Tab::make('Notifikasi WhatsApp')
+                            ->icon('heroicon-o-chat-bubble-left-right')
+                            ->schema([
+                                Grid::make(1)->schema([
+                                    Toggle::make('fonnte_notification_active')
+                                        ->label('Aktifkan Notifikasi WhatsApp Otomatis')
+                                        ->helperText('Jika diaktifkan, setiap ada laporan / aduan baru dari website, sistem akan otomatis mengirim notifikasi ke nomor WhatsApp Kesiswaan.'),
+
+                                    Grid::make(2)->schema([
+                                        TextInput::make('fonnte_token')
+                                            ->label('Token API Fonnte')
+                                            ->password()
+                                            ->revealable()
+                                            ->placeholder('Salin token dari dashboard Fonnte...')
+                                            ->helperText('Dapatkan token ini dari menu Device di https://md.fonnte.com setelah menghubungkan nomor WhatsApp.'),
+
+                                        TextInput::make('fonnte_target_phones')
+                                            ->label('Nomor WhatsApp Penerima (Kesiswaan)')
+                                            ->placeholder('Contoh: 08123456789 atau 08123456789,08987654321')
+                                            ->helperText('Nomor yang akan menerima notifikasi setiap ada aduan masuk. Bisa lebih dari 1 nomor dengan pemisah koma (,).'),
+                                    ]),
+                                ]),
+                            ]),
                     ])
                     ->columnSpanFull(),
             ])
@@ -289,6 +317,45 @@ class ManageSettings extends Page implements HasForms
                 ->label('Simpan Pengaturan')
                 ->submit('save')
                 ->color('primary'),
+
+            Action::make('test_wa')
+                ->label('Tes Kirim Notifikasi WhatsApp')
+                ->icon('heroicon-o-paper-airplane')
+                ->color('gray')
+                ->requiresConfirmation()
+                ->modalHeading('Kirim Pesan WhatsApp Uji Coba')
+                ->modalDescription('Pastikan Anda sudah menyimpan Token Fonnte dan Nomor WhatsApp Penerima sebelum menjalankan uji coba ini.')
+                ->action(function () {
+                    $targets = Setting::get('fonnte_target_phones');
+                    if (empty($targets)) {
+                        Notification::make()
+                            ->title('Nomor WhatsApp Penerima Belum Diisi')
+                            ->body('Silakan isi nomor WhatsApp penerima di tab "Notifikasi WhatsApp" lalu klik Simpan terlebih dahulu.')
+                            ->danger()
+                            ->send();
+                        return;
+                    }
+
+                    $fonnte = app(\App\Services\FonnteService::class);
+                    $res = $fonnte->sendMessage(
+                        $targets,
+                        "✅ *TES KONEKSI WHATSAPP BERHASIL*\n\nWebsite SMP Negeri 14 Surabaya telah terhubung dengan layanan WhatsApp Gateway Fonnte.\n\nNotifikasi pengaduan / aspirasi siswa & wali murid akan otomatis diteruskan ke nomor ini.\n\n📅 Waktu: " . now()->format('d/m/Y H:i') . " WIB"
+                    );
+
+                    if ($res['status']) {
+                        Notification::make()
+                            ->title('Pesan Uji Coba Berhasil Terkirim!')
+                            ->body('Silakan periksa pesan masuk di WhatsApp nomor penerima.')
+                            ->success()
+                            ->send();
+                    } else {
+                        Notification::make()
+                            ->title('Gagal Mengirim Pesan WhatsApp')
+                            ->body($res['message'])
+                            ->danger()
+                            ->send();
+                    }
+                }),
         ];
     }
 }

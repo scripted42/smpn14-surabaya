@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Complaint;
 use App\Models\Setting;
+use App\Services\FonnteService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
@@ -78,6 +80,13 @@ class ComplaintController extends Controller
             'status' => 'pending',
             'is_read' => false,
         ]);
+
+        // Kirim notifikasi WhatsApp ke Kesiswaan (Fonnte) jika aktif
+        try {
+            app(FonnteService::class)->sendComplaintNotification($complaint);
+        } catch (\Throwable $e) {
+            Log::warning('Gagal memicu notifikasi WhatsApp aduan: ' . $e->getMessage());
+        }
 
         return redirect()->route('complaint.index')
             ->with('complaint_success', true)
